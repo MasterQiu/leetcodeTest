@@ -1,0 +1,33 @@
+给定一个整型数组，在数组中找出由三个数组成的最大乘积，并输出这个乘积。
+
+示例 1:
+
+输入: [1,2,3]
+输出: 6
+示例 2:
+
+输入: [1,2,3,4]
+输出: 24
+注意:
+
+给定的整型数组长度范围是[3,104]，数组中所有的元素范围是[-1000, 1000]。
+输入的数组中任意三个数的乘积不会超出32位有符号整数的范围。
+
+
+算法：关键在于要想到第一步给数组排序！！！然后分全负数，全正数，有负数!
+
+class Solution {
+    public int maximumProduct(int[] nums) {
+        
+        Arrays.sort(nums);
+        int length=nums.length;
+        if(nums[length-1]<0){
+            return nums[length-1]*nums[length-2]*nums[length-3];
+        }else{
+            int a=nums[length-1]*nums[length-2]*nums[length-3];
+            int b=nums[length-1]*nums[0]*nums[1];
+            return  a>b? a:b;
+        }
+        
+    }
+}
