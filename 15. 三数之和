@@ -1,0 +1,61 @@
+给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
+
+注意：答案中不可以包含重复的三元组。
+
+例如, 给定数组 nums = [-1, 0, 1, 2, -1, -4]，
+
+满足要求的三元组集合为：
+[
+  [-1, 0, 1],
+  [-1, -1, 2]
+]
+
+solution:
+首先先排序，然后由两数之和扩为三数，首先判断这个数是否大于0，大于直接break；
+然后转为两束之和为-target。
+为了不重复，在选target时首先要把重复的去掉，再判断两数之和时也要舍掉其他相同的数
+
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> res=new ArrayList<List<Integer>>();
+        int size=nums.length;
+        Arrays.sort(nums);
+        for(int i=0;i<size-2;i++){
+            
+            if(nums[i]>0) break;
+            if(i>=1&&nums[i]==nums[i-1]) continue;
+            
+            int target=-nums[i];
+            int first=i+1;
+            int last=size-1;
+            while(first<last){
+                if(nums[first]+nums[last]>target){
+                    last--;
+                }else if(nums[first]+nums[last]<target){
+                    first++;
+                }else{
+                    List<Integer> temp=new ArrayList<Integer>();
+                    temp.add(nums[i]);
+                    temp.add(nums[first]);
+                    temp.add(nums[last]);
+                    res.add(temp);
+                    while((first+1)<last&&nums[first+1]==nums[first]){//舍掉重复的、
+                        first++;
+                    }
+                    while((last-1)>first&&nums[last-1]==nums[last]){
+                        last--;
+                    }
+                    first++;
+                    last--;
+                }
+            }
+            
+            
+        }
+        return res;
+        
+        
+    }
+}
+
